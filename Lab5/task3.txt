@@ -1,0 +1,31 @@
+# EE 205 Lab 5 Task 3
+
+
+Name: Paulo Lemus
+Date: 2/16/2017
+
+
+
+1. Which vulnerabilities are related to things we learned in class?
+
+Classic Buffer overflow
+Use of hardcoded credentials (can relate to buffer overflow)
+Download of code without integrity check
+Use of broken or Risky Cryptographic Algorithm (scanf/scanf_s)
+Incorrect calculation of buffer size
+uncontrolled format string
+Integer overflow
+
+
+2. Buffer overflow
+
+Buffer overflow is where data is written or read from outside of a buffers bounds. A common example of this would be accessing an array index that is past the final element or allocated memory location. Buffer overflows are security vulnerabilities, if you allow the user of a program to control the index chosen in an array without protection, they can have access to the memory
+of the computer, essentially freeing them to view any information they desire.
+
+
+3. Favorite vulnerability:
+
+SQL injection. I have often heard of this term but I never knew what it meant until now. It is my favorite vulnerability primarily due to an example video by Computerphile "Running an SQL Injection Attack". 
+In the simplest case, the creator of a website may have a search function for example that will allow the user to do a database search for items. If the creator of the website forgets to write protection against escape characters, the hacker can literally write code directly into the SQL statement.
+I find it interesting that SQL injection on a poorly protected database can allow the user to grab usernames, passwords, or really any table found in the database.
+To protect against sql injection, you must constrain any input data that anyone can enter such as usernames, passwords, search input, etc. Ensure that input cannot be escaped.

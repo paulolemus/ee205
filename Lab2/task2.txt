@@ -1,0 +1,29 @@
+/* Paulo Lemus
+ * 1/25/2017
+ * Task2.txt
+ */
+
+ How are primitive data types stored in memory?
+
+ We can look to the memory address of a primitive type and see how it is stored.
+
+ int:
+These would be stored as bits in memory. On my computer an int is 32 bits.
+The int -1 on my computer was shown as FFFFFFFF, or 11111111....(x32).
+
+ char:
+Char takes 8 bits, or a byte. The char 'a' was represented by 0x61,
+which is also the ASCII hex code for 'a'.
+
+ float:
+floats are saved in the IEEE 754 single precision floating point format.
+On my device I believe it takes 32 bits, and has the following format:
+sign x 1, exponent x 8, fraction x 23
+
+ double:
+doubles are floats but in the double precision format.
+sign 1x, exponent 11x, fraction 52x.
+
+ //////////////////
+ The first element of an array is the "head" of the array. By moving up the 
+ same number of bytes as the size of the type of array, we can find the next element.
