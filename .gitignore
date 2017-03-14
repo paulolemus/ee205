@@ -1,3 +1,22 @@
+# Ignore everything
+*
+
+# Unignore certain files
+!*.c
+!*.cpp
+!*.h
+!*.hpp
+!*.md
+!*.txt
+!*/
+!Makefile
+!makefile
+!make
+!README*
+!readme*
+!algorithms
+
+
 # Compiled Object files
 *.slo
 *.lo

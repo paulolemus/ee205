@@ -6,12 +6,15 @@
 #ifndef EE_STACK_ARRAY_H_
 #define EE_STACK_ARRAY_H_
 
+#include <exception>
 #include <iostream>
 
-namespace EE {
+namespace ee {
+namespace array {
 
 template <typename T>
 class stack {
+
     T* array;
     int sz;
     int cap;
@@ -20,7 +23,9 @@ class stack {
     stack(int capacity);
     int  size();
     int  capacity();
-    bool push(T& data);
+    bool isEmpty();
+    bool isFull();
+    bool push(const T& data);
     T    pop();
     void print();
 };
@@ -30,15 +35,18 @@ class stack {
 ///////////////////////////////////////////
 
 template <typename T>
-stack<T>::stack(int cap):sz(0), 
-                 cap(cap), 
-                 array(new T[cap]){}
+stack<T>::stack(int cap) : sz(0), cap(cap), array(new T[cap]) {}
 template <typename T>
 int stack<T>::size(){ return sz; }
 template <typename T>
 int stack<T>::capacity(){ return cap; }
 template <typename T>
-bool stack<T>::push(T& data){
+bool stack<T>::isEmpty(){ return (sz <= 0); }
+template <typename T>
+bool stack<T>::isFull(){ return (sz >= cap); }
+
+template <typename T>
+bool stack<T>::push(const T& data){
     if(sz < cap){
         array[sz] = data;
         sz++;
@@ -52,7 +60,7 @@ T stack<T>::pop(){
         sz--;
         return array[sz];
     }
-    return (T)nullptr;
+    throw std::runtime_error("Popped from empty stack");
 }
 
 template <typename T>
@@ -62,6 +70,6 @@ void stack<T>::print(){
     }
 }
 
-} // namespace EE
-
+} // array namespace
+} // ee namespace
 #endif
