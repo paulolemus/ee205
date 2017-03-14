@@ -37,5 +37,8 @@ $(TEST_SINGLE_EXECUTABLE): $(TEST_SINGLE_FILE)
 tests/%.out: tests/%.cpp
 	$(CXX) -o $@ $^ $(TEST_FLAGS)
 
+clean-tests:
+	rm tests/*.out
+
 main-stack: main-stack.cpp
 	g++ main-stack.cpp -o bin/main-stack $(CXX_FLAGS)
