@@ -14,39 +14,39 @@ TEST(ArrayQueue, empty) {
     ASSERT_FALSE( que.isFull() );
 }
 
-TEST(ArrayQueue, pushnpop) {
+TEST(ArrayQueue, enqueuendequeue) {
     ee::array::queue<int> que(5);
     
-    que.push(0);
+    que.enqueue(0);
     ASSERT_FALSE( que.isEmpty() );
     ASSERT_EQ   ( que.size(), 1 );
 
-    que.push(1);
+    que.enqueue(1);
     ASSERT_FALSE( que.isFull() );
     ASSERT_EQ   ( que.size(), 2 );
 
-    que.push(2);
+    que.enqueue(2);
     ASSERT_FALSE( que.isFull() );
     ASSERT_EQ   ( que.size(), 3 );
 
-    ASSERT_TRUE ( que.push(3) );
+    ASSERT_TRUE ( que.enqueue(3) );
     ASSERT_FALSE( que.isFull() );
     ASSERT_EQ   ( que.size(), 4 );
 
-    que.push(4);
+    que.enqueue(4);
     ASSERT_TRUE( que.isFull() );
     ASSERT_EQ  ( que.size(), 5 );
     ASSERT_EQ  ( que.size(), que.capacity() );
 
-    ASSERT_FALSE( que.push(5) );
+    ASSERT_FALSE( que.enqueue(5) );
     
-    ASSERT_EQ(que.pop(), 0);
+    ASSERT_EQ(que.dequeue(), 0);
     ASSERT_FALSE(que.isFull());
 
-    ASSERT_EQ(que.pop(), 1);
-    ASSERT_EQ(que.pop(), 2);
-    ASSERT_EQ(que.pop(), 3);
-    ASSERT_EQ(que.pop(), 4);
+    ASSERT_EQ(que.dequeue(), 1);
+    ASSERT_EQ(que.dequeue(), 2);
+    ASSERT_EQ(que.dequeue(), 3);
+    ASSERT_EQ(que.dequeue(), 4);
     ASSERT_TRUE( que.isEmpty());
 
 }
@@ -56,17 +56,17 @@ TEST(ArrayQueue, limits) {
     ASSERT_TRUE(que.isEmpty());
     ASSERT_FALSE(que.isFull());
 
-    ASSERT_THROW(que.pop(), std::runtime_error);
+    ASSERT_THROW(que.dequeue(), std::runtime_error);
     
-    que.push(0);
-    que.push(1);
-    que.push(2);
+    que.enqueue(0);
+    que.enqueue(1);
+    que.enqueue(2);
 
     ASSERT_EQ(que.peek(), 0);
 
-    ASSERT_EQ(que.pop(), 0);
-    ASSERT_EQ(que.pop(), 1);
-    ASSERT_EQ(que.pop(), 2);
+    ASSERT_EQ(que.dequeue(), 0);
+    ASSERT_EQ(que.dequeue(), 1);
+    ASSERT_EQ(que.dequeue(), 2);
     ASSERT_THROW(que.peek(), std::runtime_error);
 }
 

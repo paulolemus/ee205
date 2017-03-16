@@ -31,8 +31,8 @@ public:
     int  capacity();
     bool isEmpty();
     bool isFull();
-    bool push(const T& data);
-    T    pop();
+    bool enqueue(const T& data);
+    T    dequeue();
     T    peek();
     void print();
 
@@ -64,8 +64,14 @@ bool queue<T>::isFull() {
     return (sz >= cap);
 }
 
+/* ENQUEUE:
+ * The head always points to the oldest element entered into the queue.
+ * The tail always points to the latest element entered into the queue.
+ * When enqueueing, the tail will increment before adding the data only if
+ * the size is greater than 0. Otherwise, both head and tail point to the same element.
+ */
 template <typename T>
-bool queue<T>::push(const T& data) {
+bool queue<T>::enqueue(const T& data) {
 
     if(sz < cap) {
 
@@ -78,8 +84,15 @@ bool queue<T>::push(const T& data) {
     } 
     else return false;
 }
+
+/* DEQUEUE:
+ * You can only dequeue when the size is greater than 0, 
+ * or in other words when there are elements in the list.
+ * If a list is empty and you attempt to dequeue, a runtime
+ * error is thrown.
+ */
 template <typename T>
-T queue<T>::pop() {
+T queue<T>::dequeue() {
 
     if(sz > 0) {
         int position = head;
@@ -87,7 +100,7 @@ T queue<T>::pop() {
         if(head != tail) head = (head + 1) % cap;
         return array[position];
     }
-    throw std::runtime_error("Popped from empty queue");
+    throw std::runtime_error("dequeued from empty queue");
 }
 template <typename T>
 T queue<T>::peek() {
@@ -99,11 +112,11 @@ T queue<T>::peek() {
 
 template <typename T>
 void queue<T>::print() {
-    if(head == tail && size > 0) std::cout << array[head] << std::endl;
+    if(head == tail && sz > 0) std::cout << array[head] << std::endl;
     else if(sz > 0) {
 
         int index = head;
-        while(index != tail) {
+        for (int i = 0; i < sz; ++i) {
             std::cout << array[index] << std::endl;
             index = (index + 1) % cap;
         }

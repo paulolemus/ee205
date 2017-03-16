@@ -34,8 +34,8 @@ class queue {
     int  capacity();
     bool isEmpty();
     bool isFull();
-    bool push(const T& data);
-    T    pop();
+    bool enqueue(const T& data);
+    T    dequeue();
     T    peek();
     void print();
 };
@@ -59,7 +59,7 @@ template <typename T>
 bool queue<T>::isFull() { return (sz >= cap); }
 
 template <typename T>
-bool queue<T>::push(const T& data) {
+bool queue<T>::enqueue(const T& data) {
     if(sz < cap) {
         if(head == nullptr) {
             head = new node<T>(data);
@@ -76,7 +76,7 @@ bool queue<T>::push(const T& data) {
     else return false;
 }
 template <typename T>
-T queue<T>::pop() {
+T queue<T>::dequeue() {
     if(sz > 0) {
         T data = head->data;
         node<T>* ptr = head;
@@ -85,7 +85,7 @@ T queue<T>::pop() {
         delete ptr;
         return data;
         }
-    throw std::runtime_error("Popped from empty queue");
+    throw std::runtime_error("dequeued from empty queue");
 }
 
 template <typename T>

@@ -20,6 +20,14 @@ CXX_FLAGS := -Wall -Wextra -pedantic --std=c++11 -g
 TEST_FLAGS := -Wall -Wextra -pedantic --std=c++11 -g \
 			  $(TESTLIBS)
 
+all: main-stack main-queue
+
+main-stack: main-stack.cpp
+	g++ main-stack.cpp -o bin/main-stack $(CXX_FLAGS)
+
+main-queue: main-queue.cpp
+	g++ main-queue.cpp -o bin/main-queue $(CXX_FLAGS)
+
 tests: $(TEST_EXECUTABLES)
 
 test: $(TEST_SINGLE_EXECUTABLE)
@@ -39,6 +47,3 @@ tests/%.out: tests/%.cpp
 
 clean-tests:
 	rm tests/*.out
-
-main-stack: main-stack.cpp
-	g++ main-stack.cpp -o bin/main-stack $(CXX_FLAGS)

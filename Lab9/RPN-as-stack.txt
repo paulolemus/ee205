@@ -1,0 +1,16 @@
+The RPN code uses a stack to store and evaluate a given stream of input.
+As RPN is evaluated from left to right, it can use the stack structure
+to push and pop data accordingly to evaluate the complete stack.
+For example, if we have:
+5 3 +
+
+The RPN calculator would do the following operations:
+
+Push 5 to stack
+Push 3 to stack
+Pop two operands from stack, evaluate, push result to stack
+result.
+
+It lets the calculator evaluate the entire stack by evaluating
+two at a time and then pushing back to the stack until there is nothing
+left the stack is left with the result.
