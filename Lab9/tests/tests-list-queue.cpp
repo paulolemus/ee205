@@ -1,21 +1,21 @@
 #include <gtest/gtest.h>
 #include <exception>
-#include "../queue-array.h"
+#include "../queue-list.h"
 
-TEST(ArrayQueue, basic) {
-    ee::array::queue<int> que(5);
+TEST(ListQueue, basic) {
+    ee::list::queue<int> que(5);
     ASSERT_EQ( que.capacity(), 5 );
     ASSERT_EQ( que.size(), 0 );
 }
 
-TEST(ArrayQueue, empty) {
-    ee::array::queue<int> que(5);
+TEST(ListQueue, empty) {
+    ee::list::queue<int> que(5);
     ASSERT_TRUE( que.isEmpty() );
     ASSERT_FALSE( que.isFull() );
 }
 
-TEST(ArrayQueue, pushnpop) {
-    ee::array::queue<int> que(5);
+TEST(ListQueue, pushnpop) {
+    ee::list::queue<int> que(5);
     
     que.push(0);
     ASSERT_FALSE( que.isEmpty() );
@@ -51,8 +51,8 @@ TEST(ArrayQueue, pushnpop) {
 
 }
 
-TEST(ArrayQueue, limits) {
-    ee::array::queue<int> que(3);
+TEST(ListQueue, limits) {
+    ee::list::queue<int> que(3);
     ASSERT_TRUE(que.isEmpty());
     ASSERT_FALSE(que.isFull());
 
