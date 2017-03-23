@@ -3,6 +3,8 @@
  * Date: 3/23/2017
  */
 
+/* This is a file that you can use for simple testing of the class functions. */
+
 #include <cstdlib>
 #include <iostream>
 #include <string>
@@ -15,15 +17,18 @@
 #include "Factory.h"
 #include "Technical.h"
 
+// Used only to create initial sample employees
 void populate(std::vector<Employee*>& employees, long int nextId);
 
 int main() {
+    // Used to get initial employee ID number
     srand( time(NULL) );
     long int nextId = rand() % 500;
 
     std::vector<Employee*> employees;
 
     populate(employees, nextId);
+
 
     std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
     std::cout << "Welcome to Poodle's poorly funded payroll experience." << std::endl;
@@ -45,16 +50,37 @@ int main() {
         std::cout << std::endl;
         while(std::cin.get() != '\n');
 
+        long int idSelect;
         switch(select) {
+
+            // Simply prints the basic information for each employee
             case 'l':
                 for(unsigned int i = 0; i < employees.size(); ++i) {
                     employees[i]->printInfo();
                     std::cout << std::endl;
                 }
                 break;
-            case 'i':
 
+            // Searches for any employees with same ID, allows you to edit their payroll. 
+            case 'i':
+                std::cout << "Enter id number. Make sure its a number or I'll break.";
+                std::cout << "\n>> ";
+                while( !(std::cin >> idSelect) ) {
+                    std::cout << "Enter a valid ID.\n>> ";
+                    std::cin.clear();
+                    std::cin.ignore(100, '\n');
+                }
+                for(unsigned int i = 0; i < employees.size(); ++i) {
+                    if(employees[i]->getId() == idSelect) {
+                        employees[i]->printInfo();
+                        employees[i]->update();
+                    }
+                }
+                std::cout << std::endl;
                 break;
+
+            // Updates ALL employee payrolls. You want to do this before calculating 
+            // monthly salary.
             case 'u':
                 for(unsigned int i = 0; i < employees.size(); ++i) {
                     std::cout << "Now Editing: " << std::endl;
@@ -64,13 +90,18 @@ int main() {
                 }
                 std::cout << std::endl;
                 break;
+
+            // Calculate the monthly salary for each employee taking into account
+            // any bonuses or commission they have earned for the month
             case 'c':
                 for(unsigned int i = 0; i < employees.size(); ++i) {
                     std::cout << "Employee " << employees[i]->getId();
-                    std::cout << ": " << employees[i]->monthlySalary() << std::endl;
+                    std::cout << ": $" << employees[i]->monthlySalary() << std::endl;
                 }
                 std::cout << std::endl;
                 break;
+
+            // Quit the program
             case 'q':
                 running = false;
                 break;
@@ -84,7 +115,7 @@ int main() {
     return 0;
 }
 
-
+/* Just populates the vector with each kind of employee */
 void populate(std::vector<Employee*>& employees, long int nextId) {
 
     Employee* emp = new Admin(nextId, 
