@@ -9,7 +9,7 @@
 #include <iostream>
 #include "Employee.h"
 
-/* Status:  */
+/* Status: Finished */
 
 class Management : public Employee {
 
@@ -74,7 +74,7 @@ double Management::getBonus()  { return regBonus; }
 
 double Management::monthlySalary() { return fixedSalary / 12 + regBonus; }
 void   Management::update() {
-    std::cout << "Enter bonus value for " << name << ": ";
+    std::cout << "Enter bonus value for " << id << ": ";
     while( !(std::cin >> regBonus) || regBonus < 0 ) {
         std::cout << "Please enter a valid bonus amount: " << std::endl;
         std::cin.clear();
