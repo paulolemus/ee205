@@ -84,6 +84,7 @@ std::ostream& operator<< (std::ostream& out, const SavingsAccount& sa) {
     out << "Name:\t\t"      << sa.name        << std::endl;
     out << "Balance:\t"     << sa.balance     << std::endl;
     out << "Withdrawals:\t" << sa.withdrawals << std::endl;
+    return out;
 }
 
 bool SavingsAccount::withdraw(double amount) {

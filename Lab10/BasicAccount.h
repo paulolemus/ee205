@@ -105,6 +105,7 @@ std::ostream& operator<< (std::ostream& out, const BasicAccount& ba) {
     out << "ID:\t"      << ba.id      << std::endl;
     out << "Name:\t"    << ba.name    << std::endl;
     out << "Balance:\t" << ba.balance << std::endl;
+    return out;
 }
 
 // Withdraw

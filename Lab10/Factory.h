@@ -78,8 +78,8 @@ double Factory::monthlySalary() {
     return temp * pay; 
 }
 void   Factory::update() {
-    
-    std::cout << "current amount of sales for " << id << ": " << sales << std::endl;
+   
+    std::cout << "Current sales: " << sales << std::endl;
     std::cout << "Enter updated amount of sales: ";
     while( !(std::cin >> sales) || sales < 0 ) {
         std::cout << "Please enter a valid number of sales: ";

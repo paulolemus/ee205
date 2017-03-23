@@ -74,7 +74,8 @@ double Management::getBonus()  { return regBonus; }
 
 double Management::monthlySalary() { return fixedSalary / 12 + regBonus; }
 void   Management::update() {
-    std::cout << "Enter bonus value for " << id << ": ";
+
+    std::cout << "Enter Management employee bonus: ";
     while( !(std::cin >> regBonus) || regBonus < 0 ) {
         std::cout << "Please enter a valid bonus amount: " << std::endl;
         std::cin.clear();

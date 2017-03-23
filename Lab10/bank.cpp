@@ -31,7 +31,7 @@ int main(){
     ba[0].setBalance((double)(rand() % 5000));
     ba[1].setBalance((double)(rand() % 5000));
     ba[2].setBalance((double)(rand() % 5000));
-    for(int i = 0; i < ba.size(); i++){
+    for(unsigned int i = 0; i < ba.size(); i++){
         ba[i].setId(id);
         cout << ba[i];
         id++;
@@ -42,7 +42,7 @@ int main(){
     sa[0].setBalance((double)(rand() % 5000));
     sa[1].setBalance((double)(rand() % 5000));
     sa[2].setBalance((double)(rand() % 5000));
-    for(int i = 0; i < ba.size(); i++){
+    for(unsigned int i = 0; i < ba.size(); i++){
         sa[i].setId(id);
         cout << sa[i];
         id++;

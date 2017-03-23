@@ -63,7 +63,7 @@ double Admin::getSalary() { return fixedSalary; }
 
 double Admin::monthlySalary() { return fixedSalary / 12; }
 void   Admin::update() {
-    std::cout << "Admins have a fixed salary" << std::endl;
+    std::cout << "Admins have a fixed salary, cannot be changed." << std::endl;
 }
 
 #endif

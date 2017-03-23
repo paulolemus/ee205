@@ -20,10 +20,13 @@ CXX_FLAGS := -Wall -Wextra -pedantic --std=c++11 -g
 TEST_FLAGS := -Wall -Wextra -pedantic --std=c++11 -g \
 			  $(TESTLIBS)
 
-all: bank
+all: bank company
 
 bank: bank.cpp
 	g++ bank.cpp -o bin/bank $(CXX_FLAGS)
+
+company: company.cpp
+	g++ company.cpp -o bin/company $(CXX_FLAGS)
 
 tests: $(TEST_EXECUTABLES)
 
