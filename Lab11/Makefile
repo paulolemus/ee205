@@ -26,12 +26,11 @@ TEST_FLAGS := -Wall -Wextra -pedantic --std=c++11 -g \
 			-I$(TOPDIR) $(TESTLIBS)
 
 # The default rule to be build when just `make` is run.
-all: 
+all: ackermann
 
-clean: clean-tests
+ackermann: ackermann.cpp
+	g++ ackermann.cpp -o ackermann $(CXX_FLAGS)
 
-clean-tests:
-	rm -rf tests/*.out
 
 tests: $(TEST_EXECUTABLES)
 
@@ -47,3 +46,18 @@ $(TEST_SINGLE_EXECUTABLE): $(TEST_SINGLE_FILE)
 
 tests/%.out: tests/%.cpp
 	$(CXX) -o $@ $^ $(TEST_FLAGS)
+
+
+# CLEAN TARGETS
+
+.PHONY: clean clean-tests
+
+clean: clean-tests clean-build
+
+clean-build:
+	-rm ackermann
+
+clean-tests:
+	-rm -rf tests/*.out
+
+

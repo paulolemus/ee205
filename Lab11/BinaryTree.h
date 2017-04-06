@@ -6,7 +6,19 @@
 #ifndef EE_LAB11_BINARYTREE_H_
 #define EE_LAB11_BINARYTREE_H_
 
+#include <iostream>
 
+/* This file contains a sorted binary tree data structure.
+ * It makes use of recursion to insert, print, find, etc,
+ * however it cannot fufill the lab requirements of two
+ * complete unsorted binary trees separated by a root.
+ * This is a more traditional binary tree and is probably
+ * what I was supposed to do (?).
+ *
+ * Instead of placing functions for the tree in treeprint,
+ * treeinsert, and treefind, I wrote them all in this one file
+ * for cleanliness.
+ */
 
 ////////////////////////
 //    DECLARATIONS    //
@@ -21,111 +33,141 @@ struct Node {
     Node(const T& data);
 };
 
+
 template <typename T>
 class BinaryTree {
 
     Node<T>* root;
 
-
-    // private recursive assistance functions
-    void insert_r_assist(const T& data, Node<T>*& ptrptr);
-
 public:
     BinaryTree();
 
-    void insert  (const T& data);
-    void insert_r(const T& data);
+    Node<T>* getRoot();
+    void     insert (const T& data);
+    void     insert (const T& data, Node<T>* node);
+    Node<T>* find   (const T& data);
+    Node<T>* find   (const T& data, Node<T>* node);
+    void     inorder();
+    void     inorder(Node<T>* node);
+    void     postorder();
+    void     postorder(Node<T>* node);
 };
 
 ////////////////////////
 //   IMPLEMENTATION   //
 ////////////////////////
 
+// NODE
 template <typename T>
 Node<T>::Node(const T& data) : 
     data(data), 
     left(nullptr), 
     right(nullptr) {}
 
+
+// BINARY TREE
 template <typename T>
 BinaryTree<T>::BinaryTree() : root(nullptr) {}
 
-// Iterative implementation of insert
+template <typename T>
+Node<T>* BinaryTree<T>::getRoot() { return root; }
+
+/* Iterative implementation of insert
+ * This function is mainly used to begin the recursive
+ * insert function found directly beneath this one.
+ */
 template <typename T>
 void BinaryTree<T>::insert(const T& data) {
-    
-    // Base case, no root
-    if(root == nullptr) {
+    if(root == nullptr)  {
         root = new Node<T>(data);
     }
-
-    // If the data is in root, do nothing
-    else if(root->data == data);
-
-    // otherwise traverse tree to insert
     else {
-
-        // Decide which side of tree data should be on
-        bool inserted = false;
-        Node<T>* ptr  = root;
-        if(data > ptr->data) ptr = ptr->right;
-        else                 ptr = ptr->left;
-
-        // Do a check to see if current node is null
-        if(ptr == nullptr) {
-            ptr = new Node<T>(data);
-            inserted = true;
-        }
-
-        while(!inserted) {
-
-            // place left if possible
-            if(ptr->left == nullptr) {
-                ptr->left = new Node<T>(data);
-                inserted = true;
-            }
-            // otherwise, place right if possible
-            else if(ptr->right == nullptr) {
-                ptr->right = new Node<T>(data);
-                inserted = true;
-            }
-            // Otherwise, move to child node with an open slot
-            else {
-                if(!ptr->left->left || !ptr->left->right)
-                    ptr = ptr->left;
-                else if(!ptr->right->left || !ptr->right->right)
-                    ptr = ptr->right;
-                else ptr = ptr->left;
-            }
-
-        } // while
-    } // else
+        insert(data, root);
+    }
 } // insert
 
-// Recursive implementation of insert
+/* This function is given a non-null ptr from insert.
+ * It moves left or right depending on if the data is
+ * greater or less than the current node.
+ * It finally inserts it when it encounters a nullptr
+ */
 template <typename T>
-void BinaryTree<T>::insert_r(const T& data) {
-
-    if(root == nullptr) root = new Node<T>(data);
-    else if(data == root->data);
-    else if(data > root->data) insert_r_assist(data, root->right);
-    else                       insert_r_assist(data, root->left);
+void BinaryTree<T>::insert(const T& data, Node<T>* node) {
+    
+    if(node == nullptr);
+    else if(data == node->data);
+    else if(data > node->data) {
+        if(node->right == nullptr) node->right = new Node<T>(data);
+        else insert(data, node->right);
+    }   
+    else {
+        if(node->left == nullptr) node->left = new Node<T>(data);
+        else insert(data, node->left);
+    }
 }
+
+/* Just used to call the recursive find function
+ */
 template <typename T>
-void BinaryTree<T>::insert_r_assist(const T& data, Node<T>*& root) {
+Node<T>* BinaryTree<T>::find(const T& data) {
+    return find(data, root);
+}
 
-    // If we have reached a nullptr, we have not found the data
-    // so add a new node with the data
-    if(root == nullptr) root = new Node<T>(data);
+/* This function traverses the tree until it finds either a 
+ * nullptr leaf or if it finds a node with the data, upon which
+ * it returns it.
+ */
+template <typename T>
+Node<T>* BinaryTree<T>::find(const T& data, Node<T>* node) {
 
-    // Do nothing if the data exists in tree
-    else if(data == root->data);
+    if(node == nullptr) return nullptr;
+    else if(data == node->data) return node;
+    else if(data > node->data)  return find(data, node->right);
+    else                        return find(data, node->left);
+}
 
-    // Move to right node if data is greater that current node data
-    else if(data > root->data) insert_r_assist(data, root->right);
+/* Used to call recursive function
+ */
+template <typename T>
+void BinaryTree<T>::inorder() { 
+    inorder(root);
+    std::cout << std::endl;
+}
+/* Inorder algorithm:
+ * Traverse left subtree
+ * visit current node
+ * traverse right subtree
+ */
+template <typename T>
+void BinaryTree<T>::inorder(Node<T>* node) {
 
-    // Otherwise move to the left
-    else insert_r_assist(data, root->left);
+    if(node != nullptr) {
+        if(node->left != nullptr) inorder(node->left);
+        std::cout << node->data << " ";
+        if(node->right != nullptr) inorder(node->right);
+    }
+}
+
+/* Used to call recursive function
+ */
+template <typename T>
+void BinaryTree<T>::postorder() {
+    postorder(root);
+    std::cout <<std::endl;
+}
+/* Postorder algorithm:
+ * traverse left subtree
+ * traverse right subtree
+ * visit current node
+ */
+template <typename T>
+void BinaryTree<T>::postorder(Node<T>* node) {
+    if(node != nullptr) {
+        if(node->left != nullptr)  postorder(node->left);
+        if(node->right != nullptr) postorder(node->right);
+        std::cout << node->data << " ";
+    }
 }
 
 #endif
+
